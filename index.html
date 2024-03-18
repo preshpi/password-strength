@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Strength Checker</title>
+  </head>
+  <body>
+    <h1>Password Strength Checker</h1>
+    <button onclick="passwordStrengthChecker()">Check Password Strength</button>
+
+    <script>
+      function passwordStrengthChecker() {
+        let password = prompt("Enter your password:");
+        let lengthValid = password.length >= 8;
+        let hasUpperCase = /[A-Z]/.test(password);
+        let hasLowerCase = /[a-z]/.test(password);
+        let hasNumber = /\d/.test(password);
+        let hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+        let strength = "Weak";
+
+        if (
+          lengthValid &&
+          hasUpperCase &&
+          hasLowerCase &&
+          hasNumber &&
+          hasSpecialChar
+        ) {
+          strength = "Strong";
+        } else if (lengthValid && (hasUpperCase || hasLowerCase || hasNumber)) {
+          strength = "Medium";
+        }
+
+        let proceed = confirm(
+          `Your password is ${strength}. Do you want to proceed?`
+        );
+
+        if (proceed) {
+          alert("Password accepted!");
+        } else {
+          passwordStrengthChecker(); // Prompt user for a new password
+        }
+      }
+    </script>
+  </body>
+</html>
